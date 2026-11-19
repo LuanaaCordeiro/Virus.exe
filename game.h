@@ -52,5 +52,6 @@ typedef struct {
 } EstadoJogo;
 
 //Adicionar aqui o dicionário das funções que vcs criarem
+void inicializar_tabuleiro(EstadoJogo *jogo);
 
 #endif
