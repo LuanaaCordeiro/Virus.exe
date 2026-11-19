@@ -87,3 +87,50 @@ int salvar_jogo(const EstadoJogo *jogo, const char *nome_arquivo) {
     fclose(arquivo);
     return 1;
 }
+
+//Aqui ele vai imprimir as entidades em cada célula com suas cores e determina as cores do cursor caso ele esteja aparecendo
+void imprimir_entidade(char entidade, int is_cursor) {
+
+
+    if (is_cursor) {
+        printf(COR_CURSOR);
+    }
+
+
+    if (entidade == '*') {
+        if (is_cursor) {
+            printf(" * ");
+        } else {
+            printf(COR_VERDE "*" COR_RESET);
+        }
+    }
+    else if (entidade == 'A' || entidade == 'B' || entidade == 'G') {
+        if (is_cursor) {
+            printf(" %c ", entidade);
+        } else {
+            printf(COR_ROBO "%c" COR_RESET, entidade);
+        }
+    }
+    else if (entidade == 'V' || entidade == 'R' || entidade == 'T') {
+        if (is_cursor) {
+            printf(" %c ", entidade);
+        } else {
+            printf(COR_VIRUS "%c" COR_RESET, entidade);
+        }
+    }
+    else if (entidade == 'X') {
+        if (is_cursor) {
+            printf("\033[31m X ");
+        } else {
+            printf(COR_ERRO "X" COR_RESET);
+        }
+    }
+    else {
+        printf(" ");
+    }
+
+
+    if (is_cursor) {
+        printf(COR_RESET);
+    }
+}
