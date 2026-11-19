@@ -53,5 +53,6 @@ typedef struct {
 
 //Adicionar aqui o dicionário das funções que vcs criarem
 void inicializar_tabuleiro(EstadoJogo *jogo);
+void adicionar_entidade(EstadoJogo *jogo, int l, int c, char tipo); 
 
 #endif

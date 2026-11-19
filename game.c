@@ -34,3 +34,25 @@ void inicializar_tabuleiro(EstadoJogo *jogo)
         }
     }
 }
+
+//Adiciona a entidade na linha e na coluna (Valores temporarios pra ver se ta balanciado)
+void adicionar_entidade(EstadoJogo *jogo, int l, int c, char tipo) {
+    jogo->matriz[l][c].ocupante = tipo;
+    
+    switch (tipo) {
+
+        // Robôs
+        case 'A': jogo->matriz[l][c].hp = 100; jogo->matriz[l][c].dano = 40; break;
+        case 'B': jogo->matriz[l][c].hp = 300; jogo->matriz[l][c].dano = 0;  break;
+        case 'G': jogo->matriz[l][c].hp = 80;  jogo->matriz[l][c].dano = 0;  break;
+        
+        // Vírus
+        case 'V': jogo->matriz[l][c].hp = 80;  jogo->matriz[l][c].dano = 50; break;
+        case 'R': jogo->matriz[l][c].hp = 50;  jogo->matriz[l][c].dano = 40; break;
+        case 'T': jogo->matriz[l][c].hp = 180; jogo->matriz[l][c].dano = 25; break;
+        case 'X': jogo->matriz[l][c].hp = 0;   jogo->matriz[l][c].dano = 0;  break; 
+        
+        //Caso nn tenha nenhuma entidade
+        case '*': jogo->matriz[l][c].hp = 0;   jogo->matriz[l][c].dano = 0;  break;
+    }
+}
