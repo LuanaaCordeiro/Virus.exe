@@ -55,5 +55,6 @@ typedef struct {
 void inicializar_tabuleiro(EstadoJogo *jogo);
 void adicionar_entidade(EstadoJogo *jogo, int l, int c, char tipo); 
 int carregar_jogo(EstadoJogo *jogo, const char *nome_arquivo);
+int salvar_jogo(const EstadoJogo *jogo, const char *nome_arquivo);
 
 #endif
