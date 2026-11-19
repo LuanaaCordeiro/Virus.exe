@@ -55,4 +55,19 @@ void adicionar_entidade(EstadoJogo *jogo, int l, int c, char tipo) {
         //Caso nn tenha nenhuma entidade
         case '*': jogo->matriz[l][c].hp = 0;   jogo->matriz[l][c].dano = 0;  break;
     }
+    
+}
+int carregar_jogo(EstadoJogo *jogo, const char *nome_arquivo) {
+    //Abre o arquivo
+    FILE *arquivo = fopen(nome_arquivo, "rb");
+
+
+    if (arquivo == NULL) {
+        return 0;
+    }
+   
+    //Le os dados do arquivo
+    fread(jogo, sizeof(EstadoJogo), 1, arquivo);
+    fclose(arquivo);
+    return 1;
 }
