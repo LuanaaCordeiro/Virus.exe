@@ -71,3 +71,19 @@ int carregar_jogo(EstadoJogo *jogo, const char *nome_arquivo) {
     fclose(arquivo);
     return 1;
 }
+
+int salvar_jogo(const EstadoJogo *jogo, const char *nome_arquivo) {
+
+
+    //Aponta para um arquivo e abre ele
+    FILE *arquivo = fopen(nome_arquivo, "wb");
+    if (arquivo == NULL) {
+        printf("Erro ao criar o arquivo de save!\n");
+        return 0;
+    }
+   
+    // Escreve toda a struct no arquivo;
+    fwrite(jogo, sizeof(EstadoJogo), 1, arquivo);
+    fclose(arquivo);
+    return 1;
+}
