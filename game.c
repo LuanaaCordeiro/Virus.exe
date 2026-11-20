@@ -1,6 +1,7 @@
 #include "game.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <windows.h>
 
 // Inicializa as informações no tabuleiro
 void inicializar_tabuleiro(EstadoJogo *jogo)
@@ -132,5 +133,195 @@ void imprimir_entidade(char entidade, int is_cursor) {
 
     if (is_cursor) {
         printf(COR_RESET);
+    }
+}
+
+// Pega o cursor do terminal e joga para a primeira linha e coluna (Impede que a tela fique piscando)
+void mover_cursor_topo()
+{
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD pos = {0, 0};
+    SetConsoleCursorPosition(hConsole, pos);
+}
+
+
+void renderizar_interface(const EstadoJogo *jogo)
+{
+    static int ultimo_estado = -1;
+
+    //Aqui se a tela tiver mudado, ele vai limpar a tela pra colocar a tela nova
+    if (ultimo_estado != jogo->estado)
+    {
+        system("cls || clear");
+        ultimo_estado = jogo->estado;
+    }
+
+    else
+    {
+        mover_cursor_topo();
+    }
+
+
+    //Aqui o cabeçalho
+    printf(COR_VERDE "================================================================================\n" COR_RESET);
+    printf(COR_VERDE "                              V I R U S . E X E            \n");
+    printf(COR_VERDE "================================================================================\n" COR_RESET);
+
+    printf(COR_LEGENDA " UNIDADES DEFENSIVAS (ROBOS)            AMEACAS VIRTUAIS (VIRUS)\n" COR_RESET);
+    printf(COR_ROBO " [A] Atacante (30b) - Dano a distancia " COR_RESET " | " COR_VIRUS " <V> Comum      - Equilibrado\n" COR_RESET);
+    printf(COR_ROBO " [B] Barreira (20b) - Alta vida        " COR_RESET " | " COR_VIRUS " <R> Atirador   - Dano a distancia\n" COR_RESET);
+    printf(COR_ROBO " [G] Gerador  (25b) - Gera +15b/turno  " COR_RESET " | " COR_VIRUS " <T> Resistente - Alta vida\n" COR_RESET);
+    printf(COR_VERDE "================================================================================\n" COR_RESET);
+
+    printf(COR_VERDE_CLARO " [Turno: %02d/03]   [Onda: %02d/03]   [Bits: %04d]   [Integridade: %d%%]\n",
+           jogo->turno_atual, jogo->onda_atual, jogo->bits, jogo->integridade_nucleo);
+    printf(COR_VERDE "--------------------------------------------------------------------------------\n" COR_RESET);
+
+   //Aqui é se o jogador perder
+    if (jogo->estado == ESTADO_DERROTA)
+    {
+        printf("\n");
+        printf(COR_ERRO "      +------------------------------------------------------------------+\n");
+        printf("      |                                                                  |\n");
+        printf("      |                     [ F A L H A  C R I T I C A ]                 |\n");
+        printf("      |                                                                  |\n");
+        printf("      |                O NUCLEO FOI TOTALMENTE CORROMPIDO.               |\n");
+        printf("      |                          O SISTEMA CAIU.                         |\n");
+        printf("      |                                                                  |\n");
+        printf("      |                        Aperte 0 para Sair                        |\n");
+        printf("      |                                                                  |\n");
+        printf("      +------------------------------------------------------------------+\n" COR_RESET);
+        printf("\n> ");
+    }
+    
+    //Aqui se o jogador ganhar
+    else if (jogo->estado == ESTADO_VITORIA)
+    {
+        printf("\n");
+        printf(COR_LEGENDA "      +------------------------------------------------------------------+\n");
+        printf("      |                                                                  |\n");
+        printf("      |                         [ S U C E S S O ]                        |\n");
+        printf("      |                                                                  |\n");
+        printf("      |                          ONDA ELIMINADA!                         |\n");
+        printf("      |                O SISTEMA ESTA SEGURO POR ENQUANTO...            |\n");
+        printf("      |                                                                  |\n");
+        printf("      |                         Aperte 0 para Sair                        |\n");
+        printf("      |                                                                  |\n");
+        printf("      +------------------------------------------------------------------+\n" COR_RESET);
+        printf("\n> ");
+    }
+   
+    //Se o jogador nao perder nem ganhar aqui é o tabuleiro padrao
+    else
+    {
+    
+        printf("        " COR_ROBO "[NUC]" COR_RESET COR_VERDE_CLARO "    [1]    |    [2]    [3]    [4]    [5]    [6]    [7]    [8]    " COR_VIRUS "[SPAWN]" COR_RESET "\n");
+        printf(COR_VERDE "--------------------------------------------------------------------------------\n" COR_RESET);
+
+
+        for (int i = 0; i < LINHAS; i++)
+        {
+            printf(COR_VERDE_CLARO " [L%d] | " COR_RESET, i);
+
+            for (int j = 0; j < COLUNAS; j++)
+            {
+                char entidade = jogo->matriz[i][j].ocupante;
+                int is_cursor = (jogo->estado == ESTADO_POSICIONANDO && jogo->cursor_l == i && jogo->cursor_c == j);
+
+                if (j == 0)
+                {
+                    printf(is_cursor ? " " : "  ");
+                    imprimir_entidade(entidade, is_cursor);
+                    printf(is_cursor ? " " : "  ");
+                    printf("    ");
+                }
+                else if (j == 1)
+                {
+                    printf(is_cursor ? "" : " ");
+                    imprimir_entidade(entidade, is_cursor);
+                    printf(is_cursor ? "" : " ");
+                    printf(COR_VERDE "    |    " COR_RESET);
+                }
+                else if (j >= 2 && j <= 8)
+                {
+                    printf(" ");
+                    imprimir_entidade(entidade, 0);
+                    printf(" ");
+                    printf("    ");
+                }
+                else if (j == 9)
+                {
+                    printf("  ");
+                    imprimir_entidade(entidade, 0);
+                    printf("   ");
+                }
+            }
+
+            printf("\n");
+        }
+
+        printf(COR_VERDE "--------------------------------------------------------------------------------\n" COR_RESET);
+
+        if (jogo->estado == ESTADO_MENU)
+        {
+            printf(COR_AVISO "[ TERMINAL ] Aguardando input do Usuário...\n" COR_RESET);
+            printf("Comandos: [1] Instalar Robo  |  [2] Iniciar Turno  |  [0] Sair do Sistema\n> ");
+        }
+        else if (jogo->estado == ESTADO_LOJA)
+        {
+            if (jogo->estado_anterior == ESTADO_TURNO)
+            {
+                printf(COR_AVISO "[ LOJA ] Selecione o Sistema Defensivo (JOGO PAUSADO):\n" COR_RESET);
+            }
+            else
+            {
+                printf(COR_AVISO "[ LOJA ] Selecione o Sistema Defensivo:\n" COR_RESET);
+            }
+
+           if (jogo->bits >= 30) {
+                printf(COR_LEGENDA "[1] Atacante (30b)\n" COR_RESET);
+            } else {
+                printf(COR_ERRO "[1] Atacante (30b) - SALDO INSUFICIENTE\n" COR_RESET);
+            }
+            printf("    > Objetivo: Dispara projeteis em linha reta a cada turno.\n\n");
+
+            
+            if (jogo->bits >= 20) {
+                printf(COR_LEGENDA "[2] Barreira (20b)\n" COR_RESET);
+            } else {
+                printf(COR_ERRO "[2] Barreira (20b) - SALDO INSUFICIENTE\n" COR_RESET);
+            }
+            printf("    > Objetivo: Alta durabilidade, bloqueia o avanco inimigo.\n\n");
+
+        
+            if (jogo->bits >= 25) {
+                printf(COR_LEGENDA "[3] Gerador  (25b)\n" COR_RESET);
+            } else {
+                printf(COR_ERRO "[3] Gerador  (25b) - SALDO INSUFICIENTE\n" COR_RESET);
+            }
+            printf("    > Objetivo: Gera +15 bits constantemente durante o turno\n\n");
+
+            printf("[0] Voltar\n> ");
+        }
+        else if (jogo->estado == ESTADO_POSICIONANDO)
+        {
+            printf(COR_AVISO "[ INSTALACAO ] Robo [%c] selecionado.\n" COR_RESET, jogo->robo_selecionado);
+            printf("Use as SETAS do teclado para mover o cursor. Aperte [ESPACO] para instalar ou [0] para cancelar.\n> ");
+        }
+        else if (jogo->estado == ESTADO_TURNO)
+        {
+            printf(COR_VIRUS "[ ALERTA ] TURNO EM ANDAMENTO! OS VIRUS ESTAO AVANCANDO!\n" COR_RESET);
+            printf("Comandos: [1] Pausar (Abrir Loja)\n> ");
+        }
+        else if (jogo->estado == ESTADO_DERROTA)
+        {
+            printf(COR_ERRO "[ FALHA CRITICA ] O NUCLEO FOI TOTALMENTE CORROMPIDO. O SISTEMA CAIU.\n" COR_RESET);
+            printf("Comandos: [0] Encerrar Sessao\n> ");
+        }
+        else if (jogo->estado == ESTADO_VITORIA)
+        {
+            printf(COR_LEGENDA "[ SUCESSO ] ONDA ELIMINADA! O SISTEMA ESTA SEGURO... POR ENQUANTO.\n" COR_RESET);
+            printf("Comandos: [0] Encerrar Sessao\n> ");
+        }
     }
 }

@@ -48,4 +48,6 @@ int main() {
         }
     }
 
+    renderizar_interface(jogo);
+
 }
