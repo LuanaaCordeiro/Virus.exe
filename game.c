@@ -325,3 +325,54 @@ void renderizar_interface(const EstadoJogo *jogo)
         }
     }
 }
+
+//Função apra as ações dos robos funcionarem
+void processar_robos(EstadoJogo *jogo)
+{
+    for (int i = 0; i < LINHAS; i++)
+    {
+        for (int j = 0; j < COLUNAS; j++)
+        {
+            char entidade = jogo->matriz[i][j].ocupante;
+
+
+            if (entidade == 'G')
+            {
+                if (jogo->segundos_passados > 0 && jogo->segundos_passados % 2 == 0) //Vai gerar os bits a cada 2 seg
+                {
+                    jogo->bits += 15;
+                }
+            }
+
+
+            else if (entidade == 'A')
+            {
+                if (jogo->segundos_passados > 0 && jogo->segundos_passados % 1 == 0) //Atira a cada 1 seg
+                {
+                    int dano_robo = jogo->matriz[i][j].dano;
+
+
+                    for (int k = j + 1; k < COLUNAS; k++)
+                    {
+                        char alvo = jogo->matriz[i][k].ocupante;
+
+
+                        if (alvo == 'V' || alvo == 'T' || alvo == 'R')
+                        {
+                            jogo->matriz[i][k].hp -= dano_robo;
+
+
+                            if (jogo->matriz[i][k].hp <= 0)
+                            {
+                                adicionar_entidade(jogo, i, k, '*');
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
