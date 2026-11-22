@@ -512,3 +512,74 @@ void mover_virus(EstadoJogo *jogo)
         }
     }
 }
+void verificar_condicoes(EstadoJogo *jogo)
+{
+    //Derrota
+    if (jogo->integridade_nucleo <= 0)
+    {
+        jogo->estado = ESTADO_DERROTA;
+        return;
+    }
+
+
+    //Verifica se tem algum virus no mapa
+    int virus_ativos = 0;
+    for (int i = 0; i < LINHAS; i++)
+    {
+        for (int j = 0; j < COLUNAS; j++)
+        {
+            char c = jogo->matriz[i][j].ocupante;
+            if (c == 'V' || c == 'T' || c == 'R')
+                virus_ativos++;
+        }
+    }
+   
+    int total_fila = jogo->virus_v_restantes + jogo->virus_t_restantes + jogo->virus_r_restantes;
+   
+    if (total_fila == 0 && virus_ativos == 0)
+    {
+       
+        if (jogo->turno_atual < 3)
+        {
+            jogo->turno_atual++;
+            jogo->onda_atual++;
+            jogo->bits = 50;            
+            jogo->segundos_passados = 0;
+            
+           
+            for (int i = 0; i < LINHAS; i++)
+            {
+                for (int j = 0; j < COLUNAS; j++)
+                {
+                    //Reseta o mapa
+                    if (jogo->matriz[i][j].ocupante != 'X')
+                    {
+                        adicionar_entidade(jogo, i, j, '*');
+                    }
+                }
+            }
+
+
+            if (jogo->turno_atual == 2)
+            {
+                jogo->virus_v_restantes = 5;
+                jogo->virus_t_restantes = 3;
+                jogo->virus_r_restantes = 2;
+            }
+            else if (jogo->turno_atual == 3)
+            {
+                jogo->virus_v_restantes = 8;
+                jogo->virus_t_restantes = 4;
+                jogo->virus_r_restantes = 3;
+            }
+
+
+            jogo->estado = ESTADO_MENU;
+            jogo->estado_anterior = ESTADO_MENU;
+        }
+        else
+        {
+            jogo->estado = ESTADO_VITORIA;
+        }
+    }
+}

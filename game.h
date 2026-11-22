@@ -60,5 +60,7 @@ void renderizar_interface(const EstadoJogo *jogo);
 void processar_robos(EstadoJogo *jogo);
 void spawnar_virus(EstadoJogo *jogo);
 void mover_virus(EstadoJogo *jogo);
+void verificar_condicoes(EstadoJogo *jogo);
+
 
 #endif
