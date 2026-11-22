@@ -426,3 +426,89 @@ void spawnar_virus(EstadoJogo *jogo)
         }
     }
 }
+void mover_virus(EstadoJogo *jogo)
+{
+    for (int i = 0; i < LINHAS; i++)
+    {
+        //Caso o virus chegue na col 0
+        char entidade = jogo->matriz[i][0].ocupante;
+        if (entidade == 'V' || entidade == 'T' || entidade == 'R')
+        {
+            jogo->integridade_nucleo -= 20;
+            if (jogo->integridade_nucleo < 0)
+                jogo->integridade_nucleo = 0;
+
+
+            adicionar_entidade(jogo, i, 0, 'X');
+
+
+            for (int j = 1; j < COLUNAS; j++)
+            {
+                adicionar_entidade(jogo, i, j, '*');
+            }
+        }
+    }
+
+
+    //Dano que os virus causam
+    for (int i = 0; i < LINHAS; i++)
+    {
+
+
+        if (jogo->matriz[i][0].ocupante == 'X')
+            continue;
+
+
+        for (int j = 1; j < COLUNAS; j++)
+        {
+            char entidade = jogo->matriz[i][j].ocupante;
+
+
+            if (entidade == 'V' || entidade == 'T' || entidade == 'R')
+            {
+                int atacou_corpo_a_corpo = 0;
+
+
+                if (entidade == 'R')
+                {
+                    for (int k = j - 1; k >= 0; k--)
+                    {
+                        char alvo = jogo->matriz[i][k].ocupante;
+                        if (alvo == 'A' || alvo == 'B' || alvo == 'G')
+                        {
+                            jogo->matriz[i][k].hp -= jogo->matriz[i][j].dano;
+                            if (jogo->matriz[i][k].hp <= 0)
+                                adicionar_entidade(jogo, i, k, '*');
+                            break;
+                        }
+                    }
+                }
+
+
+                else
+                {
+                    char alvo = jogo->matriz[i][j - 1].ocupante;
+                    if (alvo == 'A' || alvo == 'B' || alvo == 'G')
+                    {
+                        jogo->matriz[i][j - 1].hp -= jogo->matriz[i][j].dano;
+                        atacou_corpo_a_corpo = 1;
+                        if (jogo->matriz[i][j - 1].hp <= 0)
+                            adicionar_entidade(jogo, i, j - 1, '*');
+                    }
+                }
+
+
+
+
+                //Os viros se movimentas pra coluna na frente na mesma linha
+                if (jogo->matriz[i][j - 1].ocupante == '*' && !atacou_corpo_a_corpo)
+                {
+                    jogo->matriz[i][j - 1].ocupante = entidade;
+                    jogo->matriz[i][j - 1].hp = jogo->matriz[i][j].hp;
+                    jogo->matriz[i][j - 1].dano = jogo->matriz[i][j].dano;
+                    adicionar_entidade(jogo, i, j, '*');
+                }
+            }
+        }
+    }
+}
