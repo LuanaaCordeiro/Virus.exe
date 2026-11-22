@@ -375,4 +375,54 @@ void processar_robos(EstadoJogo *jogo)
     }
 }
 
+void spawnar_virus(EstadoJogo *jogo)
+{
+    int total_restantes = jogo->virus_v_restantes + jogo->virus_t_restantes + jogo->virus_r_restantes;
 
+
+    if (total_restantes > 0)
+    {
+        int linhas_validas = 0;
+        for (int i = 0; i < LINHAS; i++)
+        {
+            if (jogo->matriz[i][0].ocupante != 'X')
+                linhas_validas++;
+        }
+
+
+        if (linhas_validas > 0)
+        {
+            int linha_spawn;
+
+
+            //Aqui é pra fazer o sorteio e ver se a linha foi perdida ou não
+            do
+            {
+               
+                linha_spawn = rand() % LINHAS; // O rand vai gerar um numero aleatorio e o modulo de linhas vai ser 0,1,2,3,4
+            } while (jogo->matriz[linha_spawn][0].ocupante == 'X');
+
+
+            //Vai spawnar os virus
+            if (jogo->matriz[linha_spawn][9].ocupante == '*')
+            {
+                int sorteio = rand() % total_restantes;
+                if (sorteio < jogo->virus_v_restantes)
+                {
+                    adicionar_entidade(jogo, linha_spawn, 9, 'V');
+                    jogo->virus_v_restantes--;
+                }
+                else if (sorteio < jogo->virus_v_restantes + jogo->virus_t_restantes)
+                {
+                    adicionar_entidade(jogo, linha_spawn, 9, 'T');
+                    jogo->virus_t_restantes--;
+                }
+                else
+                {
+                    adicionar_entidade(jogo, linha_spawn, 9, 'R');
+                    jogo->virus_r_restantes--;
+                }
+            }
+        }
+    }
+}

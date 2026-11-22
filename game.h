@@ -58,6 +58,7 @@ int carregar_jogo(EstadoJogo *jogo, const char *nome_arquivo);
 int salvar_jogo(const EstadoJogo *jogo, const char *nome_arquivo);
 void renderizar_interface(const EstadoJogo *jogo);
 void processar_robos(EstadoJogo *jogo);
+void spawnar_virus(EstadoJogo *jogo);
 
 
 #endif
