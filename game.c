@@ -264,7 +264,7 @@ void renderizar_interface(const EstadoJogo *jogo)
 
         if (jogo->estado == ESTADO_MENU)
         {
-            printf(COR_AVISO "[ TERMINAL ] Aguardando input do Usuário...\n" COR_RESET);
+            printf(COR_AVISO "[ TERMINAL ] Aguardando input do Usuario...\n" COR_RESET);
             printf("Comandos: [1] Instalar Robo  |  [2] Iniciar Turno  |  [0] Sair do Sistema\n> ");
         }
         else if (jogo->estado == ESTADO_LOJA)
