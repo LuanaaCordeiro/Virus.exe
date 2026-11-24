@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <conio.h>
 
 // Inicializa as informações no tabuleiro
 void inicializar_tabuleiro(EstadoJogo *jogo)
