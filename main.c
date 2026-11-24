@@ -143,6 +143,11 @@ int main()
                         jogo->estado = ESTADO_TURNO;
                         ultimo_movimento = clock();
                     }
+                   else if (tecla == '3')
+                    {
+                        inicializar_tabuleiro(jogo);
+                        system("cls || clear");
+                    }
                     else if (tecla == '0')
                     {
                         salvar_jogo(jogo, "savegame.bin");
@@ -202,7 +207,17 @@ int main()
                     }
                 }
                 else if (jogo->estado == ESTADO_DERROTA || jogo->estado == ESTADO_VITORIA) {
-                    if (tecla == '0') {
+                    if (tecla == '1') {
+                        int venceu = 0;
+                        if (jogo->estado == ESTADO_VITORIA) {
+                            venceu = 1;
+                        }
+                        atualizar_estatisticas(venceu, jogo->segundos_passados);
+
+                        inicializar_tabuleiro(jogo);
+                        system("cls || clear");
+                    }
+                    else if (tecla == '0') {
                         int venceu = 0;
                         if (jogo->estado == ESTADO_VITORIA) {
                             venceu = 1;
@@ -213,10 +228,10 @@ int main()
                         rodando = 0; 
                     }
                 }
-            }
             renderizar_interface(jogo);
         }
     }
+}
 
     free(jogo);
 

@@ -181,13 +181,14 @@ void renderizar_interface(const EstadoJogo *jogo)
     if (jogo->estado == ESTADO_DERROTA)
     {
         printf("\n");
-        printf(COR_ERRO "      +------------------------------------------------------------------+\n");
+        printf(COR_ERRO"      +------------------------------------------------------------------+\n");
         printf("      |                                                                  |\n");
         printf("      |                     [ F A L H A  C R I T I C A ]                 |\n");
         printf("      |                                                                  |\n");
         printf("      |                O NUCLEO FOI TOTALMENTE CORROMPIDO.               |\n");
         printf("      |                          O SISTEMA CAIU.                         |\n");
         printf("      |                                                                  |\n");
+        printf("      |                      Aperte 1 para Reiniciar                     |\n");
         printf("      |                        Aperte 0 para Sair                        |\n");
         printf("      |                                                                  |\n");
         printf("      +------------------------------------------------------------------+\n" COR_RESET);
@@ -198,13 +199,14 @@ void renderizar_interface(const EstadoJogo *jogo)
     else if (jogo->estado == ESTADO_VITORIA)
     {
         printf("\n");
-        printf(COR_LEGENDA "      +------------------------------------------------------------------+\n");
+        printf(COR_ERRO"      +------------------------------------------------------------------+\n");
         printf("      |                                                                  |\n");
         printf("      |                         [ S U C E S S O ]                        |\n");
         printf("      |                                                                  |\n");
         printf("      |                          TURNO ELIMINADO!                         |\n");
         printf("      |                O SISTEMA ESTA SEGURO POR ENQUANTO...            |\n");
         printf("      |                                                                  |\n");
+        printf("      |                       Aperte 1 para Reiniciar                        |\n");
         printf("      |                         Aperte 0 para Sair                        |\n");
         printf("      |                                                                  |\n");
         printf("      +------------------------------------------------------------------+\n" COR_RESET);
@@ -265,7 +267,7 @@ void renderizar_interface(const EstadoJogo *jogo)
         if (jogo->estado == ESTADO_MENU)
         {
             printf(COR_AVISO "[ TERMINAL ] Aguardando input do Usuario...\n" COR_RESET);
-            printf("Comandos: [1] Instalar Robo  |  [2] Iniciar Turno  |  [0] Sair do Sistema\n> ");
+            printf("Comandos: [1] Instalar Robo  |  [2] Iniciar Turno  | [3] Reiniciar Turno  | [0] Sair e Salvar\n> ");
         }
         else if (jogo->estado == ESTADO_LOJA)
         {
