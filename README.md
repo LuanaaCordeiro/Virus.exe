@@ -53,4 +53,6 @@ typedef struct {
 *   **`[spawnar_virus]`**: [Gera os virus no tabuleiro]
 *   **`[mover_virus]`**: [Faz os vírus se movimentarem no mapa]
 *   **`[verificar_condicoes]`**: [Verifica se o jogador ganhou, perdeu ou mudou de turno]
+*   **`[atualizar_estatisticas]`**: [Adiciona e modifica as estatisticas de partidas do usuário]
+*   **`[exibir_estatisticas]`**: [Mostra as estatisticas para o usuário]
 
