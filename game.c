@@ -7,15 +7,14 @@
 void inicializar_tabuleiro(EstadoJogo *jogo)
 {
     jogo->bits = 50;                     // Começa o jogo com 50 bits
-    jogo->turno_atual = 1;               // Turno inicial
-    jogo->onda_atual = 1;                // Onda inicial
+    jogo->turno_atual = 1;               // Turno inicial               
     jogo->integridade_nucleo = 100;      // Quantidade de vida que o nucleo começa
 
     jogo->segundos_passados = 0;         // Inicia o turno com o tempo zerado (isso é pra progressão do jogo, ok? o tempo que cada virus anda, cada virus/robo atira, etc)
 
     jogo->virus_v_restantes = 3;         // Quantidade de Virus
     jogo->virus_t_restantes = 2;         // da
-    jogo->virus_r_restantes = 0;         // Primeira onda
+    jogo->virus_r_restantes = 0;         // Primeiro turno
 
     jogo->estado = ESTADO_MENU;          // Estado 0, menu inicial
     jogo->estado_anterior = ESTADO_MENU; // O estado padrao pra quando ele for voltar
@@ -173,8 +172,8 @@ void renderizar_interface(const EstadoJogo *jogo)
     printf(COR_ROBO " [G] Gerador  (25b) - Gera +15b/turno  " COR_RESET " | " COR_VIRUS " <T> Resistente - Alta vida\n" COR_RESET);
     printf(COR_VERDE "================================================================================\n" COR_RESET);
 
-    printf(COR_VERDE_CLARO " [Turno: %02d/03]   [Onda: %02d/03]   [Bits: %04d]   [Integridade: %d%%]\n",
-           jogo->turno_atual, jogo->onda_atual, jogo->bits, jogo->integridade_nucleo);
+    printf(COR_VERDE_CLARO " [Turno: %02d/03]   [Bits: %04d]   [Integridade: %d%%]\n",
+           jogo->turno_atual, jogo->bits, jogo->integridade_nucleo);
     printf(COR_VERDE "--------------------------------------------------------------------------------\n" COR_RESET);
 
    //Aqui é se o jogador perder
@@ -202,7 +201,7 @@ void renderizar_interface(const EstadoJogo *jogo)
         printf("      |                                                                  |\n");
         printf("      |                         [ S U C E S S O ]                        |\n");
         printf("      |                                                                  |\n");
-        printf("      |                          ONDA ELIMINADA!                         |\n");
+        printf("      |                          TURNO ELIMINADO!                         |\n");
         printf("      |                O SISTEMA ESTA SEGURO POR ENQUANTO...            |\n");
         printf("      |                                                                  |\n");
         printf("      |                         Aperte 0 para Sair                        |\n");
@@ -320,7 +319,7 @@ void renderizar_interface(const EstadoJogo *jogo)
         }
         else if (jogo->estado == ESTADO_VITORIA)
         {
-            printf(COR_LEGENDA "[ SUCESSO ] ONDA ELIMINADA! O SISTEMA ESTA SEGURO... POR ENQUANTO.\n" COR_RESET);
+            printf(COR_LEGENDA "[ SUCESSO ] TURNO ELIMINADO! O SISTEMA ESTA SEGURO... POR ENQUANTO.\n" COR_RESET);
             printf("Comandos: [0] Encerrar Sessao\n> ");
         }
     }
@@ -542,7 +541,6 @@ void verificar_condicoes(EstadoJogo *jogo)
         if (jogo->turno_atual < 3)
         {
             jogo->turno_atual++;
-            jogo->onda_atual++;
             jogo->bits = 50;            
             jogo->segundos_passados = 0;
             
