@@ -60,6 +60,7 @@ void processar_robos(EstadoJogo *jogo);
 void spawnar_virus(EstadoJogo *jogo);
 void mover_virus(EstadoJogo *jogo);
 void verificar_condicoes(EstadoJogo *jogo);
-
+void atualizar_estatisticas(int venceu, int tempo_segundos);
+void exibir_estatisticas();
 
 #endif

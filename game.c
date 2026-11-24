@@ -581,3 +581,83 @@ void verificar_condicoes(EstadoJogo *jogo)
         }
     }
 }
+//Para o novo arquivo .txt
+void atualizar_estatisticas(int venceu, int tempo_segundos) {
+    int vitorias = 0, derrotas = 0, melhor_tempo = 0;
+
+
+    //abre e le o que esta no arquivo
+    FILE *arquivo = fopen("estatisticas.txt", "r");
+    if (arquivo != NULL) {
+        fscanf(arquivo, "%d %d %d", &vitorias, &derrotas, &melhor_tempo);
+        fclose(arquivo);
+    }
+
+
+    //Atualiza os dados
+    if (venceu) {
+        vitorias++;
+        if (melhor_tempo == 0 || tempo_segundos < melhor_tempo) {
+            melhor_tempo = tempo_segundos;
+        }
+    } else {
+        derrotas++;
+    }
+
+
+    //Escreve os novos dados
+    arquivo = fopen("estatisticas.txt", "w");
+    if (arquivo != NULL) {
+        fprintf(arquivo, "%d %d %d\n", vitorias, derrotas, melhor_tempo);
+        fclose(arquivo);
+    }
+}
+
+
+//Exibe as infos na tela
+void exibir_estatisticas() {
+    int vitorias = 0, derrotas = 0, melhor_tempo = 0;
+
+
+    FILE *arquivo = fopen("estatisticas.txt", "r");
+    if (arquivo != NULL) {
+        fscanf(arquivo, "%d %d %d", &vitorias, &derrotas, &melhor_tempo);
+        fclose(arquivo);
+    }
+
+
+    int total = vitorias + derrotas;
+    float taxa = 0.0f;
+    if (total > 0) {
+        taxa = ((float)vitorias / total) * 100.0f;
+    }
+
+
+    system("cls || clear");
+    printf(COR_AVISO "================================================================================\n" COR_RESET);
+    printf("               V I R U S . E X E  //  E S T A T I S T I C A S                   \n");
+    printf(COR_AVISO "================================================================================\n\n" COR_RESET);
+
+
+    printf(" Partidas Jogadas : %d\n", total);
+    printf(" Vitorias         : %d\n", vitorias);
+    printf(" Derrotas         : %d\n", derrotas);
+    printf(" Taxa de Vitoria  : %.1f%%\n", taxa);
+
+
+    if (melhor_tempo > 0) {
+        printf(" Recorde de Tempo : %d segundos\n", melhor_tempo);
+    } else {
+        printf(" Recorde de Tempo : (Nenhuma vitoria ainda)\n");
+    }
+
+
+    printf("\n" COR_LEGENDA "Pressione ESC para voltar ao menu" COR_RESET);
+   
+    while (_getch() != 27) {
+
+
+    }
+   
+   
+}
