@@ -203,11 +203,11 @@ void renderizar_interface(const EstadoJogo *jogo)
         printf("      |                                                                  |\n");
         printf("      |                         [ S U C E S S O ]                        |\n");
         printf("      |                                                                  |\n");
-        printf("      |                          TURNO ELIMINADO!                         |\n");
-        printf("      |                O SISTEMA ESTA SEGURO POR ENQUANTO...            |\n");
+        printf("      |                          TURNO ELIMINADO!                        |\n");
+        printf("      |                O SISTEMA ESTA SEGURO POR ENQUANTO...             |\n");
         printf("      |                                                                  |\n");
-        printf("      |                       Aperte 1 para Reiniciar                        |\n");
-        printf("      |                         Aperte 0 para Sair                        |\n");
+        printf("      |                       Aperte 1 para Reiniciar                    |\n");
+        printf("      |                         Aperte 0 para Sair                       |\n");
         printf("      |                                                                  |\n");
         printf("      +------------------------------------------------------------------+\n" COR_RESET);
         printf("\n> ");

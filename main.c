@@ -228,8 +228,8 @@ int main()
                         rodando = 0; 
                     }
                 }
-            renderizar_interface(jogo);
-        }
+            }
+        renderizar_interface(jogo);
     }
 }
 
