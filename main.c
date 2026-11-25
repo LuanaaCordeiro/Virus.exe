@@ -27,10 +27,17 @@ int main()
     printf(COR_VERDE "                              V I R U S . E X E            \n");
     printf(COR_VERDE "================================================================================\n" COR_RESET);
     printf("\n");
-    printf(COR_LEGENDA " [1] Iniciar Novo Jogo\n" COR_RESET);
-    printf(COR_LEGENDA " [2] Restaurar Jogo Anterior\n" COR_RESET);
-    printf(COR_LEGENDA " [3] Ver Estatisticas\n" COR_RESET);
-    printf("\n> Aguardando input... ");
+    printf(COR_VERDE "       +------------------------+    +--------------------------------------+\n");
+    printf(COR_VERDE "       |     MENU PRINCIPAL     |    |         PROTOCOLO DE DEFESA          |\n");
+    printf(COR_VERDE "       +------------------------+    +--------------------------------------+\n");
+    printf(COR_VERDE "       |                        |    |  Voce e o Admin de Seguranca do SO.  |\n");
+    printf(COR_VERDE "       |  [1] Iniciar Jogo      |    |  Posicione Robos nos barramentos     |\n");
+    printf(COR_VERDE "       |  [2] Continuar Jogo    |    |  para impedir a invasao dos Virus!   |\n");
+    printf(COR_VERDE "       |  [3] Estatisticas      |    |                                      |\n");
+    printf(COR_VERDE "       |  [4] Sair do Sistema   |    |  [R] Robos: Defendem a memoria       |\n");
+    printf(COR_VERDE "       |                        |    |  [V] Virus: Avancam pelo barramento  |\n");
+    printf(COR_VERDE "       +------------------------+    +--------------------------------------+\n" COR_RESET);
+    printf(COR_VERDE "\n  admin@virus:~$ ");
 
 
             int tecla_boot = _getch(); // O _getch verifica qual a tecla que foi apertada
@@ -52,6 +59,9 @@ int main()
         }
         else if (tecla_boot == '3') {
             exibir_estatisticas();
+        } else if(tecla_boot == '4'){
+            free(jogo);
+            return 0;
         }
     }
 

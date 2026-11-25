@@ -199,11 +199,11 @@ void renderizar_interface(const EstadoJogo *jogo)
     else if (jogo->estado == ESTADO_VITORIA)
     {
         printf("\n");
-        printf(COR_ERRO"      +------------------------------------------------------------------+\n");
+        printf(COR_VERDE"      +------------------------------------------------------------------+\n");
         printf("      |                                                                  |\n");
         printf("      |                         [ S U C E S S O ]                        |\n");
         printf("      |                                                                  |\n");
-        printf("      |                          TURNO ELIMINADO!                        |\n");
+        printf("      |                          AMEACA ELIMINADA!                       |\n");
         printf("      |                O SISTEMA ESTA SEGURO POR ENQUANTO...             |\n");
         printf("      |                                                                  |\n");
         printf("      |                       Aperte 1 para Reiniciar                    |\n");
