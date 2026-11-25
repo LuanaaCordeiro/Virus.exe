@@ -28,7 +28,6 @@ typedef struct {
     Celula matriz[LINHAS][COLUNAS];
     int bits;
     int turno_atual;
-    int onda_atual;
     int integridade_nucleo;
     int segundos_passados; 
     int virus_v_restantes;
