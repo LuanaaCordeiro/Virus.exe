@@ -266,7 +266,7 @@ void renderizar_interface(const EstadoJogo *jogo)
 
         if (jogo->estado == ESTADO_MENU)
         {
-            printf(COR_AVISO "[ TERMINAL ] Aguardando input do Usuario...\n" COR_RESET);
+            printf(COR_AVISO "[ TERMINAL ] Aguardando input do Usuario\n" COR_RESET);
             printf("Comandos: [1] Instalar Robo  |  [2] Iniciar Turno  | [3] Reiniciar Turno  | [0] Sair e Salvar\n> ");
         }
         else if (jogo->estado == ESTADO_LOJA)
@@ -314,16 +314,6 @@ void renderizar_interface(const EstadoJogo *jogo)
         {
             printf(COR_VIRUS "[ ALERTA ] TURNO EM ANDAMENTO! OS VIRUS ESTAO AVANCANDO!\n" COR_RESET);
             printf("Comandos: [1] Pausar (Abrir Loja)\n> ");
-        }
-        else if (jogo->estado == ESTADO_DERROTA)
-        {
-            printf(COR_ERRO "[ FALHA CRITICA ] O NUCLEO FOI TOTALMENTE CORROMPIDO. O SISTEMA CAIU.\n" COR_RESET);
-            printf("Comandos: [0] Encerrar Sessao\n> ");
-        }
-        else if (jogo->estado == ESTADO_VITORIA)
-        {
-            printf(COR_LEGENDA "[ SUCESSO ] TURNO ELIMINADO! O SISTEMA ESTA SEGURO... POR ENQUANTO.\n" COR_RESET);
-            printf("Comandos: [0] Encerrar Sessao\n> ");
         }
     }
 }
@@ -637,9 +627,9 @@ void exibir_estatisticas() {
 
 
     system("cls || clear");
-    printf(COR_AVISO "================================================================================\n" COR_RESET);
-    printf("               V I R U S . E X E  //  E S T A T I S T I C A S                   \n");
-    printf(COR_AVISO "================================================================================\n\n" COR_RESET);
+    printf(COR_VERDE "================================================================================\n" COR_RESET);
+    printf(COR_VERDE"                V I R U S . E X E  //  E S T A T I S T I C A S                   \n");
+    printf(COR_VERDE "================================================================================\n\n" COR_RESET);
 
 
     printf(" Partidas Jogadas : %d\n", total);

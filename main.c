@@ -102,6 +102,7 @@ int main()
         if (_kbhit())
         {
             int tecla = _getch();
+           int mudou = 0;
 
             if (tecla == 224 || tecla == 0)
             {
@@ -114,6 +115,7 @@ int main()
                         if (jogo->cursor_l > 0)
                         {
                             jogo->cursor_l--;
+                            mudou = 1;
                         }
                     }
                     else if (tecla == 80)
@@ -121,6 +123,7 @@ int main()
                         if (jogo->cursor_l < LINHAS - 1)
                         {
                             jogo->cursor_l++;
+                            mudou = 1;
                         }
                     }
                     else if (tecla == 75)
@@ -128,6 +131,7 @@ int main()
                         if (jogo->cursor_c > 0)
                         {
                             jogo->cursor_c--;
+                            mudou = 1;
                         }
                     }
                     else if (tecla == 77)
@@ -135,6 +139,7 @@ int main()
                         if (jogo->cursor_c < 1)
                         {
                             jogo->cursor_c++;
+                            mudou = 1;
                         }
                     }
                 }
@@ -147,16 +152,19 @@ int main()
                     {
                         jogo->estado_anterior = ESTADO_MENU;
                         jogo->estado = ESTADO_LOJA;
+                        mudou = 1;
                     }
                     else if (tecla == '2')
                     {
                         jogo->estado = ESTADO_TURNO;
                         ultimo_movimento = clock();
+                        mudou = 1;
                     }
                    else if (tecla == '3')
                     {
                         inicializar_tabuleiro(jogo);
                         system("cls || clear");
+                        mudou = 1;
                     }
                     else if (tecla == '0')
                     {
@@ -171,22 +179,26 @@ int main()
                         jogo->robo_selecionado = 'A';
                         jogo->custo_selecionado = 30;
                         jogo->estado = ESTADO_POSICIONANDO;
+                        mudou = 1;
                     }
                     else if (tecla == '2' && jogo->bits >= 20)
                     {
                         jogo->robo_selecionado = 'B';
                         jogo->custo_selecionado = 20;
                         jogo->estado = ESTADO_POSICIONANDO;
+                        mudou = 1;
                     }
                     else if (tecla == '3' && jogo->bits >= 25)
                     {
                         jogo->robo_selecionado = 'G';
                         jogo->custo_selecionado = 25;
                         jogo->estado = ESTADO_POSICIONANDO;
+                        mudou = 1;
                     }
                     else if (tecla == '0')
                     {
                         jogo->estado = jogo->estado_anterior;
+                        mudou = 1;
                     }
                 }
                 else if (jogo->estado == ESTADO_POSICIONANDO)
@@ -194,6 +206,7 @@ int main()
                     if (tecla == '0')
                     {
                         jogo->estado = jogo->estado_anterior;
+                        mudou = 1;
                     }
                     else if (tecla == ' ')
                     {
@@ -205,6 +218,7 @@ int main()
                             adicionar_entidade(jogo, jogo->cursor_l, jogo->cursor_c, jogo->robo_selecionado);
                             jogo->bits -= jogo->custo_selecionado;
                             jogo->estado = jogo->estado_anterior;
+                            mudou = 1;
                         }
                     }
                 }
@@ -214,6 +228,7 @@ int main()
                     {
                         jogo->estado_anterior = ESTADO_TURNO;
                         jogo->estado = ESTADO_LOJA;
+                        mudou = 1;
                     }
                 }
                 else if (jogo->estado == ESTADO_DERROTA || jogo->estado == ESTADO_VITORIA) {
@@ -226,6 +241,7 @@ int main()
 
                         inicializar_tabuleiro(jogo);
                         system("cls || clear");
+                        mudou = 1;
                     }
                     else if (tecla == '0') {
                         int venceu = 0;
@@ -239,9 +255,12 @@ int main()
                     }
                 }
             }
-        renderizar_interface(jogo);
+            if (mudou)
+            {
+                renderizar_interface(jogo);
+            }
+        }
     }
-}
 
     free(jogo);
 
