@@ -10,6 +10,17 @@ Um servidor sofreu uma invasão coordenada por agentes maliciosos. Após o rompi
 Núcleo do Sistema, ameaçando comprometê-lo. Para impedir o colapso, o jogador deverá instalar estrategicamente robôs de defesa na memória RAM, criando linhas 
 de proteção capazes de eliminar as ameaças antes que alcancem o núcleo.
 
+## ⚙️ Compilação e Execução (Windows)
+
+O projeto utiliza as bibliotecas `<windows.h>` e `<conio.h>` e deve ser compilado no Windows com `gcc`. No terminal, dentro da pasta do projeto, execute:
+
+```bash
+gcc main.c game.c -o game.exe
+```
+Para iniciar o jogo no CMD:
+```bash
+./game.exe
+```
 
 ## 🧱 Estruturas de Dados (Structs)
 Neste projeto, utilizamos as seguintes `structs` para organizar o jogo:
