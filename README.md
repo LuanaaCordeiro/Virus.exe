@@ -41,6 +41,18 @@ typedef struct {
     int custo_selecionado;
 } EstadoJogo;
 ```
+## 🎮 Controles Básicos
+* Menu Principal: 1 Iniciar Jogo | 2 Continuar Jogo Salvo | 3 Estatísticas | 4 Sair do Sistema
+* Tela de Estatísticas: ESC para voltar ao menu
+* Durante a Preparação: 1 Instalar Robô (Loja) | 2 Iniciar Turno | 3 Reiniciar | 0 Salvar e Sair
+* Loja: 1 Atacante (30b) | 2 Barreira (20b) | 3 Gerador (25b) | 0 Voltar
+* Posicionamento: Setas direcionais para mover o cursor | Espaço para instalar | 0 para cancelar
+* Durante o Turno: 1 Pausar e abrir a loja
+* Tela de Vitória/Derrota: 1 Reiniciar | 0 Salvar e Sair
+
+## 📼 Arquivos de Dados
+* savegame.bin: Armazena o estado completo da partida atual para continuar posteriormente.
+* estatisticas.txt: Registra o histórico de vitórias, derrotas e o melhor tempo de conclusão.
 
 ## 🎮 Funções (Structs)
 *   **`[inicializar_tabuleiro]`**: [Inicializa as informações do tabuleiro que estão na struct EstadoJogo]
@@ -54,4 +66,10 @@ typedef struct {
 *   **`[verificar_condicoes]`**: [Verifica se o jogador ganhou, perdeu ou mudou de turno]
 *   **`[atualizar_estatisticas]`**: [Adiciona e modifica as estatisticas de partidas do usuário]
 *   **`[exibir_estatisticas]`**: [Mostra as estatisticas para o usuário]
+
+## 👪 Equipe
+* Emilly Maciel de Lima
+* Guido Vidal de Oliveira
+* Luana da Costa Cordeiro
+* Maria Fernanda Sombra Costa
 
